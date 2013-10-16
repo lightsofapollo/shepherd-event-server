@@ -35,10 +35,9 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "./", "/shepherd"
 
-  # forward standard http to dynamic port range
-  config.vm.network "forwarded_port", guest: 80, host: 60001
+  # forward default starting port to host
+  config.vm.network "forwarded_port", guest: 60001, host: 60001
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -54,6 +53,16 @@ Vagrant.configure("2") do |config|
   #
   # View the documentation for the provider you're using for more
   # information on available options.
+
+  # allow symlinks in shared folders
+  config.vm.provider "virtualbox" do |v|
+    v.customize [
+      "setextradata",
+      :id,
+      "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root",
+      "1"
+    ]
+  end
 
   # config.ssh.max_tries = 40
   # config.ssh.timeout   = 120

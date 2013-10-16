@@ -1,6 +1,19 @@
-var http = require('http');
+function main() {
+  var express = require('express'),
+      app = express(),
+      mongoskin = require('mongoskin');
 
-http.createServer(function (request, response) {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.end('Hello World\n');
-}).listen(80);
+  app.set('db', mongoskin.db(
+    process.env.MONGOURL || 'mongodb://localhost/development',
+    // at least one server acks the write and its journaled
+    { w: 1, j: 1 }
+  ));
+
+  return app;
+}
+
+if (require.main === module) {
+  main().listen(process.env.PORT || 60001);
+}
+
+module.exports = main;
