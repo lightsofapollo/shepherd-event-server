@@ -1,10 +1,11 @@
 function main() {
   var express = require('express'),
       app = express(),
-      mongoskin = require('mongoskin');
+      mongoskin = require('mongoskin'),
+      config = require('./config.json');
 
   app.set('db', mongoskin.db(
-    process.env.MONGOURL || 'mongodb://localhost/development',
+    process.env.MONGOURL || config.mongodb,
     // at least one server acks the write and its journaled
     { w: 1, j: 1 }
   ));
