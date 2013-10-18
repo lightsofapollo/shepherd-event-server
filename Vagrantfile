@@ -99,7 +99,8 @@ Vagrant.configure("2") do |config|
       "recipe[mongodb::10gen_repo]",
       # configure it
       "recipe[mongodb::default]",
-      "recipe[nodejs]"
+      "recipe[nodejs]",
+      "recipe[git]",
     ]
   end
 end
