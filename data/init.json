@@ -3,7 +3,8 @@
     {
       "type": "github",
       "detail": { "user": "mozilla-b2g", "repo": "gaia" },
-      "active": true
+      "active": true,
+      "beta": true
     }
   ]
 }

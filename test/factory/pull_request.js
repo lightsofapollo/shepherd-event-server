@@ -6,6 +6,8 @@
 @param {Number} options.number pr number.
 */
 function factory(options) {
+  var testConfig = require('../../test_config.json').github;
+
   return {
     number: options.number || 1,
     state: 'open',
@@ -13,9 +15,9 @@ function factory(options) {
     head: {},
     base: {
       repo: {
-        name: options.repo,
+        name: options.repo || testConfig.junkyard_repo,
         owner: {
-          login: options.user
+          login: options.user || testConfig.junkyard_user
         }
       }
     }

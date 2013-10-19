@@ -38,6 +38,7 @@ Vagrant.configure("2") do |config|
 
   # forward default starting port to host
   config.vm.network "forwarded_port", guest: 60001, host: 60001
+  config.vm.network "forwarded_port", guest: 27017, host: 27017
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.

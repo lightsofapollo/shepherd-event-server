@@ -57,7 +57,7 @@ function create(options, callback) {
   var github = require('./github')();
   // repo where we put test subjects.
   var junkyard =
-    github.getRepo(config.junkyard_username, config.junkyard_repo);
+    github.getRepo(config.junkyard_user, config.junkyard_repo);
 
   // create the branch name
   var pullObject = new PullRequest();

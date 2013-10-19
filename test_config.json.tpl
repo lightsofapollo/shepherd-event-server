@@ -7,7 +7,7 @@
 
   "github": {
     "token": "xxxxx",
-    "junkyard_username": "username",
+    "junkyard_user": "username",
     "junkyard_repo": "junkyard"
   }
 }
