@@ -4,6 +4,9 @@ suite('routes/init', function() {
       config = require('../../config.json'),
       exec = require('child_process').exec;
 
+  // stage the db
+  var testDB = require('../support/db')();
+
   function initDB() {
     setup(function(done) {
       exec(
@@ -17,9 +20,6 @@ suite('routes/init', function() {
       );
     });
   }
-
-  // stage the db
-  var testDB = require('../support/db')();
 
   var db, app;
   setup(function() {
