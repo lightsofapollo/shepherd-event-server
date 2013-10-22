@@ -8,33 +8,76 @@ suite('routes/track', function() {
       request = require('supertest'),
       app,
       pullRequestFactory = require('../factory/pull_request'),
-      eventFactory = require('../factory/pull_request_event');
+      eventFactory = require('../factory/pull_request_event'),
+      consts = require('../../routes/track').consts;
 
+  suite('error reponses', function() {
+    setup(function() {
+      app = appFactory();
+    });
 
-  setup(function(done) {
-    var config = require('../../test_config.json').github;
+    test('invalid request - no body', function(done) {
+      request(app).
+        post('/track').
+        send().
+        expect(400, consts.INVALID_BODY).
+        end(done);
+    });
 
-    app = appFactory();
+    test('request without +sheperd', function(done) {
+      var fixture = {
+        pull_request: pullRequestFactory({
+          title: 'amazing cooking'
+        })
+      };
 
-    // insert a record to enable linking
-    var document = {
-      active: true,
-      type: 'github',
-      detail: {
-        user: config.junkyard_user,
-        repo: config.junkyard_repo
-      }
-    };
+      request(app).
+        post('/track').
+        send(fixture).
+        expect(200, consts.NOT_SHEPHERD).
+        end(done);
+    });
 
-    var collection = app.get('db').collection('projects');
+    test('+shepherd project not in db', function(done) {
+      var fixture = {
+        pull_request: pullRequestFactory({
+          title: 'woot +shepherd'
+        })
+      };
 
-    collection.insert(
-      document,
-      done
-    );
+      var app = appFactory();
+      request(app).
+        post('/track').
+        send(fixture).
+        expect(401, consts.NOT_TRACKED_REPO).
+        end(done);
+    });
   });
 
   suite('link opted pull request', function() {
+    setup(function(done) {
+      var config = require('../../test_config.json').github;
+
+      app = appFactory();
+
+      // insert a record to enable linking
+      var document = {
+        active: true,
+        type: 'github',
+        detail: {
+          user: config.junkyard_user,
+          repo: config.junkyard_repo
+        }
+      };
+
+      var collection = app.get('db').collection('projects');
+
+      collection.insert(
+        document,
+        done
+      );
+    });
+
     var bug = bugFactory({
       product: 'Testing',
       component: 'Marionette',
