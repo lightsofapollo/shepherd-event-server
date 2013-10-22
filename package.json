@@ -20,7 +20,7 @@
     "mocha": "~1.13.0",
     "supervisor": "~0.5.6",
     "supertest": "~0.8.0",
-    "bz": "1.0.0-alpha.4",
+    "bz": "1.0.0-alpha.5",
     "github-api": "git://github.com/michael/github.git#7b45b4d6936c3dfb271bb0ea09924554c74e9de8",
     "uuid": "~1.4.1"
   },

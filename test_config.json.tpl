@@ -1,8 +1,8 @@
 {
   "bugzilla": {
-    "url": "http://localhost:8080/bmo/rest",
-    "username": "user@myemail.com",
-    "password": "mypassword"
+    "url": "http://localhost:8080/rest",
+    "username": "jlal@mozilla.com",
+    "password": "testtest"
   },
 
   "github": {
