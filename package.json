@@ -3,16 +3,32 @@
   "version": "0.0.0",
   "description": "shepherd-event-server =====================",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/mozilla-b2g-bot/shepherd-event-server.git"
   },
   "author": "",
-  "license": "BSD-2-Clause",
+  "license": "Apache2",
   "bugs": {
     "url": "https://github.com/mozilla-b2g-bot/shepherd-event-server/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.13.0",
+    "supervisor": "~0.5.6",
+    "supertest": "~0.8.0",
+    "bz": "1.0.0-alpha.5",
+    "github-api": "git://github.com/michael/github.git#7b45b4d6936c3dfb271bb0ea09924554c74e9de8",
+    "uuid": "~1.4.1"
+  },
+  "dependencies": {
+    "express": "~3.4.0",
+    "mongoskin": "0.6.0",
+    "github": "~0.1.12",
+    "debug": "~0.7.2",
+    "task-linkify": "git://github.com/mozilla-b2g-bot/task-linkify.git#0.1.0"
   }
 }

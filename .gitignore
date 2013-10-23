@@ -10,6 +10,8 @@ Berksfile.lock
 
 # Bundler
 Gemfile.lock
-bin/*
 .bundle/*
 
+# node
+node_modules
+/test_config.json

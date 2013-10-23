@@ -1,0 +1,10 @@
+{
+  "projects": [
+    {
+      "type": "github",
+      "detail": { "user": "mozilla-b2g", "repo": "gaia" },
+      "active": true,
+      "beta": true
+    }
+  ]
+}
