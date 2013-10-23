@@ -38,6 +38,10 @@ function main() {
   // request.
   app.post('/track', require('./routes/track'));
 
+  app.get('/hello', function(req, res) {
+    res.send(200, { message: 'it works!' });
+  });
+
   return app;
 }
 
