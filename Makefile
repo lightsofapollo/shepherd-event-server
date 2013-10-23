@@ -6,7 +6,7 @@ node_modules:
 
 .PHONY: test
 test: node_modules
-	./node_modules/.bin/mocha $(shell find test -name "_test.js")
+	./node_modules/.bin/mocha $(shell find test -name "*_test.js")
 
 .PHONY: watch
 watch:

@@ -144,8 +144,15 @@ suite('routes/track', function() {
 
       test('creates attachment', function(done) {
         bz.bugAttachments(bugNumber, function(err, attachments) {
-          console.log(attachments);
-          done(err);
+          if (err) return done(err);
+          assert(attachments.length, 'has attachments')
+          var attachment = attachments[0];
+          var url = new Buffer(attachment.data, 'base64').toString();
+          assert.ok(
+            url.indexOf('pull/' + pull.initial.number) !== -1,
+            'pull request is referenced'
+          );
+          done();
         });
       });
     });
