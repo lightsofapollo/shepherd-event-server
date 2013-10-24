@@ -1,14 +1,14 @@
 var TEST_DB = 'mongodb://localhost/shepherd_test';
 
 /**
- - sets the process.env.MONGOURL to a test db
+ - sets the process.env.MONGOLAB_URI to a test db
  - drops database
 */
 function dbSetup() {
   var mongoskin = require('mongoskin');
 
   // dirty hack to ensure we use a test db.
-  process.env.MONGOURL = TEST_DB;
+  process.env.MONGOLAB_URI = TEST_DB;
 
   setup(function(done) {
     // we need to open it first

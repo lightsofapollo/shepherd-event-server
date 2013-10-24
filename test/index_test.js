@@ -28,7 +28,7 @@ suite('index', function() {
 
   suite('environment variable specified mongodb', function() {
     var url = 'mongodb://localhost/test_custom';
-    setEnvs({ MONGOURL: url });
+    setEnvs({ MONGOLAB_URI: url });
 
     test('sets the mongodb url', function(done) {
       var app = subject(),
