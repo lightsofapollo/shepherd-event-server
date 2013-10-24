@@ -32,7 +32,7 @@ function track(req, res) {
 
   // if the pull request has not opted for shepherd abort
   if (pull.title.indexOf('+shepherd') === -1) {
-    console.log(pull.title + 'is not +shepherd');
+    console.log(pull.title + ' is NOT +shepherd, IGNORING');
     // maybe this should be something other than 200 but we need to send
     // something in that range so github keeps issuing requests.
     res.send(200, consts.NOT_SHEPHERD);
