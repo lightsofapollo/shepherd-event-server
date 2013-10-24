@@ -9,7 +9,7 @@ function main() {
   app.use(express.logger());
 
   app.set('db', mongoskin.db(
-    process.env.MONGOURL || config.mongodb,
+    process.env.MONGOLAB_URI || config.mongodb,
     // at least one server acks the write and its journaled
     { w: 1, j: 1 }
   ));
