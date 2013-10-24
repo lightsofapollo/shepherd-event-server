@@ -42,6 +42,10 @@ function main() {
     res.send(200, { message: 'it works!' });
   });
 
+  app.get('/', function(req, res) {
+    res.send(200, "The door closes behind you.");
+  });
+
   return app;
 }
 
