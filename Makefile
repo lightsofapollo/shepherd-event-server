@@ -6,16 +6,16 @@ node_modules: package.json
 
 .PHONY: test-full
 test-full: test
-	./node_modules/.bin/mocha test/routes/track_test.js
+	./node_modules/.bin/mocha routes/track_test.js \
+		test/support/pull_request_test.js \
+		test/support/bz_test.js
 
 .PHONY: test
 test: node_modules
 	./node_modules/.bin/mocha \
-		test/bin/db_init_test.js \
+		bin/db_init_test.js \
 		test/index_test.js \
-		test/lib/store/project_test.js \
-		test/support/bz_test.js \
-		test/support/pull_request_test.js
+		store/project_test.js
 
 .PHONY: watch
 watch:

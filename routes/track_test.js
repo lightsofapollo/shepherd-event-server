@@ -1,15 +1,15 @@
 suite('routes/track', function() {
-  var appFactory = require('../../');
-  require('../support/db')();
+  var appFactory = require('../');
+  require('../test/support/db')();
 
-  var createPull = require('../support/pull_request'),
-      bz = require('../support/bz')(),
-      bugFactory = require('bugzilla-fixtures/bug'),
+  var createPull = require('../test/support/pull_request'),
+      bz = require('../test/support/bz')(),
+      bugFactory = require('../test/factory/bug'),
       request = require('supertest'),
       app,
-      pullRequestFactory = require('../factory/pull_request'),
-      eventFactory = require('../factory/pull_request_event'),
-      consts = require('../../routes/track').consts;
+      pullRequestFactory = require('../test/factory/pull_request'),
+      eventFactory = require('../test/factory/pull_request_event'),
+      consts = require('./track').consts;
 
   suite('error reponses', function() {
     setup(function() {
@@ -56,7 +56,7 @@ suite('routes/track', function() {
 
   suite('link opted pull request', function() {
     setup(function(done) {
-      var config = require('../../test_config.json').github;
+      var config = require('../test_config.json').github;
 
       app = appFactory();
 
@@ -128,7 +128,7 @@ suite('routes/track', function() {
 
       setup(function(done) {
         // create the event
-        incomingPR = pullRequestFactory({
+        incomingPR = pullRequestFactory.create({
           title: 'yey +shepherd',
           number: pull.initial.number
         });

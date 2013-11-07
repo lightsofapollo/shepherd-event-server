@@ -3,7 +3,7 @@ suite('support/bz', function() {
       bugFactory = require('../factory/bug');
 
   test('create bug', function(done) {
-    client.createBug(bugFactory(), function(err, res) {
+    client.createBug(bugFactory.create(), function(err, res) {
       if (err) return done(err);
       assert.equal(typeof res, 'number');
       done();
