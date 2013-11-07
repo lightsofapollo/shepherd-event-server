@@ -3,6 +3,7 @@ suite('project', function() {
   // stage the db
   var testDB = require('../../test/support/db')(),
       prFactory = require('../../test/factory/pull_request'),
+      projectFactory = require('../../test/factory/project'),
       appFactory = require('../../');
 
   var subject,
@@ -15,6 +16,7 @@ suite('project', function() {
   });
 
   suite('#findByPullRequest', function() {
+
     test('cannot find pull request', function(done) {
       var pr = prFactory.create();
       subject.findByPullRequest(pr, function(err, project) {
@@ -23,27 +25,12 @@ suite('project', function() {
       });
     });
 
-    suite('success', function() {
+    suite('with a project', function() {
       var pr = prFactory.create();
-
-      var document = {
-        type: 'github',
-        active: true,
-        detail: {
-          user: github.junkyard_user,
-          repo: github.junkyard_repo
-        }
-      };
+      var project = projectFactory.create();
 
       setup(function(done) {
-        db.collection('projects').insert({
-          type: 'github',
-          active: true,
-          detail: {
-            user: github.junkyard_user,
-            repo: github.junkyard_repo
-          }
-        }, done);
+        db.collection('projects').insert(project, done);
       });
 
       test('finds record', function(done) {
@@ -53,8 +40,11 @@ suite('project', function() {
           done(err);
         });
       });
+
     });
+
   });
 
 
 });
+
