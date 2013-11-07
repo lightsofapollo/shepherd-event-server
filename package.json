@@ -29,6 +29,7 @@
     "mongoskin": "0.6.0",
     "github": "~0.1.12",
     "debug": "~0.7.2",
-    "task-linkify": "git://github.com/mozilla-b2g-bot/task-linkify.git#0.1.0"
+    "task-linkify": "git://github.com/mozilla-b2g-bot/task-linkify.git#0.1.0",
+    "object-factory": "~0.1.1"
   }
 }

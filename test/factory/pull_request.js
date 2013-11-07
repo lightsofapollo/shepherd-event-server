@@ -1,27 +1,25 @@
-/**
-@param {Object} options for factory.
-@param {String} options.user user.login.
-@param {String} options.repo repo name.
-@param {String} options.title title for pr.
-@param {Number} options.number pr number.
-*/
-function factory(options) {
-  var testConfig = require('../../test_config.json').github;
+var PullRequest = require('github-fixtures/pull_request'),
+    Repo = require('github-fixtures/repo');
 
-  return {
-    number: options.number || 1,
-    state: 'open',
-    title: options.title || 'title',
-    head: {},
-    base: {
-      repo: {
-        name: options.repo || testConfig.junkyard_repo,
-        owner: {
-          login: options.user || testConfig.junkyard_user
-        }
-      }
-    }
-  };
-}
+module.exports = PullRequest.extend({
+  onbuild: function(props) {
+    var config = require('../../test_config.json').github;
 
-module.exports = factory;
+    var repo = config.junkyard_repo;
+    var user = config.junkyard_user;
+
+    var repo = Repo.create({
+      name: config.junkyard_repo,
+
+      owner: {
+        login: config.junkyard_user
+      },
+
+      clone_url: 'https://github.com/' +
+                  config.junkyard_user +
+                  '/' + config.junkyard_repo + '.git'
+    });
+
+    props.base.repo = repo;
+  }
+});

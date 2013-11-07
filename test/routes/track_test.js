@@ -4,7 +4,7 @@ suite('routes/track', function() {
 
   var createPull = require('../support/pull_request'),
       bz = require('../support/bz')(),
-      bugFactory = require('../factory/bug'),
+      bugFactory = require('bugzilla-fixtures/bug'),
       request = require('supertest'),
       app,
       pullRequestFactory = require('../factory/pull_request'),
@@ -26,7 +26,7 @@ suite('routes/track', function() {
 
     test('request without +sheperd', function(done) {
       var fixture = {
-        pull_request: pullRequestFactory({
+        pull_request: pullRequestFactory.create({
           title: 'amazing cooking'
         })
       };
@@ -40,7 +40,7 @@ suite('routes/track', function() {
 
     test('+shepherd project not in db', function(done) {
       var fixture = {
-        pull_request: pullRequestFactory({
+        pull_request: pullRequestFactory.create({
           title: 'woot +shepherd'
         })
       };
@@ -78,7 +78,7 @@ suite('routes/track', function() {
       );
     });
 
-    var bug = bugFactory({
+    var bug = bugFactory.create({
       product: 'Testing',
       component: 'Marionette',
       summary: 'test bug!',
