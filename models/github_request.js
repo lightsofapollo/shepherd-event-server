@@ -1,7 +1,6 @@
 var Request = require('./request');
 
 var GithubRequest = {
-
   /**
   Create a request from a project and pull_request record.
 
@@ -23,7 +22,14 @@ var GithubRequest = {
   @param {Object} request to validate.
   @return {Null|Error} null in the case of success an error object otherwise.
   */
-  checkForErrors: function() {
+  checkForErrors: function(request) {
+    if (!request.github || !request.github.number) {
+      return new Error('invalid .github.number');
+    }
+
+    if (!request.projectId) {
+      return new Error('invalid .projectId');
+    }
   }
 };
 

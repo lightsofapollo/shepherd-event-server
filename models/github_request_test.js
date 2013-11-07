@@ -5,9 +5,10 @@ suite('models/github_request', function() {
       Model = require('./github_request');
 
 
+  var project = Project.create(),
+      pr = PullRequest.create();
+
   suite('#create', function() {
-    var pr = PullRequest.create();
-    var project = Project.create();
 
     var subject;
 
@@ -31,6 +32,22 @@ suite('models/github_request', function() {
       assert.deepEqual(subject.github, {
         number: pr.number
       });
+    });
+  });
+
+  suite('#checkForErrors', function() {
+    test('invalid pull request', function() {
+      var subject = Model.create(project, {});
+      var error = Model.checkForErrors(subject);
+
+      assert.ok(error.message.indexOf('.number') !== -1);
+    });
+
+    test('invalid projectId', function() {
+      var subject = Model.create({}, pr);
+      var error = Model.checkForErrors(subject);
+
+      assert.ok(error.message.indexOf('.projectId') !== -1);
     });
   });
 });
