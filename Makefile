@@ -12,9 +12,8 @@ test: node_modules
 .PHONY: test-min
 test-min: node_modules
 	./node_modules/.bin/mocha \
-		bin/db_init_test.js \
 		test/index_test.js \
-		store/project_test.js
+		store/github_project_test.js \
 
 .PHONY: watch
 watch:
