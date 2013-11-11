@@ -5,11 +5,12 @@ suite('routes/track', function() {
   var createPull = require('../test/support/pull_request'),
       bz = require('../test/support/bz')(),
       bugFactory = require('../test/factory/bug'),
-      request = require('supertest'),
-      app,
       pullRequestFactory = require('../test/factory/pull_request'),
       eventFactory = require('../test/factory/pull_request_event'),
-      consts = require('./track').consts;
+      projectFactory = require('../test/factory/project'),
+      request = require('supertest'),
+      consts = require('./track').consts,
+      app;
 
   suite('error reponses', function() {
     setup(function() {
@@ -57,23 +58,13 @@ suite('routes/track', function() {
   suite('link opted pull request', function() {
     setup(function(done) {
       var config = require('../test_config.json').github;
-
       app = appFactory();
-
-      // insert a record to enable linking
-      var document = {
-        active: true,
-        type: 'github',
-        detail: {
-          user: config.junkyard_user,
-          repo: config.junkyard_repo
-        }
-      };
 
       var collection = app.get('db').collection('projects');
 
+      // insert a record to enable linking
       collection.insert(
-        document,
+        projectFactory.create(),
         done
       );
     });
