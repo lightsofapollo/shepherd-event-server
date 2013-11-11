@@ -17,8 +17,6 @@ module.exports = new Factory({
   },
 
   properties: {
-    id: 1,
-
     url: 'https://github.com/' +
           config.junkyard_user +
           '/' + config.junkyard_repo + '.git',
