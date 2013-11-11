@@ -23,6 +23,9 @@ var GithubRequest = {
   @return {Null|Error} null in the case of success an error object otherwise.
   */
   checkForErrors: function(request) {
+    var superError = Request.checkForErrors(request);
+    if (superError) return superError;
+
     if (!request.github || !request.github.number) {
       return new Error('invalid .github.number');
     }
