@@ -1,6 +1,5 @@
 default: test
 
-
 node_modules: package.json
 	npm install
 
@@ -19,4 +18,3 @@ test-min: node_modules
 .PHONY: watch
 watch:
 	./node_modules/.bin/supervisor index.js
-
