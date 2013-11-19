@@ -1,6 +1,5 @@
 default: test
 
-
 node_modules: package.json
 	npm install
 
@@ -13,9 +12,9 @@ test: node_modules
 test-min: node_modules
 	./node_modules/.bin/mocha \
 		test/index_test.js \
-		store/github_project_test.js \
+		$(wildcard store/*_test.js) \
+		$(wildcard models/*_test.js)
 
 .PHONY: watch
 watch:
 	./node_modules/.bin/supervisor index.js
-
