@@ -1,15 +1,16 @@
 suite('routes/track', function() {
-  var appFactory = require('../../');
-  require('../support/db')();
+  var appFactory = require('../');
+  require('../test/support/db')();
 
-  var createPull = require('../support/pull_request'),
-      bz = require('../support/bz')(),
-      bugFactory = require('../factory/bug'),
+  var createPull = require('../test/support/pull_request'),
+      bz = require('../test/support/bz')(),
+      bugFactory = require('../test/factory/bug'),
+      pullRequestFactory = require('../test/factory/pull_request'),
+      eventFactory = require('../test/factory/pull_request_event'),
+      projectFactory = require('../test/factory/project'),
       request = require('supertest'),
-      app,
-      pullRequestFactory = require('../factory/pull_request'),
-      eventFactory = require('../factory/pull_request_event'),
-      consts = require('../../routes/track').consts;
+      consts = require('./track').consts,
+      app;
 
   suite('error reponses', function() {
     setup(function() {
@@ -26,7 +27,7 @@ suite('routes/track', function() {
 
     test('request without +sheperd', function(done) {
       var fixture = {
-        pull_request: pullRequestFactory({
+        pull_request: pullRequestFactory.create({
           title: 'amazing cooking'
         })
       };
@@ -40,7 +41,7 @@ suite('routes/track', function() {
 
     test('+shepherd project not in db', function(done) {
       var fixture = {
-        pull_request: pullRequestFactory({
+        pull_request: pullRequestFactory.create({
           title: 'woot +shepherd'
         })
       };
@@ -56,29 +57,19 @@ suite('routes/track', function() {
 
   suite('link opted pull request', function() {
     setup(function(done) {
-      var config = require('../../test_config.json').github;
-
+      var config = require('../test_config.json').github;
       app = appFactory();
-
-      // insert a record to enable linking
-      var document = {
-        active: true,
-        type: 'github',
-        detail: {
-          user: config.junkyard_user,
-          repo: config.junkyard_repo
-        }
-      };
 
       var collection = app.get('db').collection('projects');
 
+      // insert a record to enable linking
       collection.insert(
-        document,
+        projectFactory.create(),
         done
       );
     });
 
-    var bug = bugFactory({
+    var bug = bugFactory.create({
       product: 'Testing',
       component: 'Marionette',
       summary: 'test bug!',
@@ -128,7 +119,7 @@ suite('routes/track', function() {
 
       setup(function(done) {
         // create the event
-        incomingPR = pullRequestFactory({
+        incomingPR = pullRequestFactory.create({
           title: 'yey +shepherd',
           number: pull.initial.number
         });

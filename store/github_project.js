@@ -11,7 +11,8 @@ Project.prototype = {
   @param {Function} callback [Error, Project].
   */
   findByPullRequest: function(pr, callback) {
-    var baseRepo = pr && pr.base && pr.base.repo;
+    var base = pr && pr.base,
+        baseRepo = base && base.repo;
 
     if (!baseRepo) {
       return process.nextTick(function() {
@@ -19,8 +20,9 @@ Project.prototype = {
       });
     }
 
-    var repo = baseRepo.name;
-    var user = baseRepo.owner && baseRepo.owner.login;
+    var repo = baseRepo.name,
+        user = baseRepo.owner && baseRepo.owner.login,
+        branch = base.label;
 
     if (!user) {
       return process.nextTick(function() {
@@ -30,13 +32,23 @@ Project.prototype = {
       });
     }
 
+    if (!branch) {
+      return process.nextTick(function() {
+        callback(new Error('base branch not found'));
+      });
+    }
+
     function onFind(err, records) {
       if (err) return callback(err);
       callback(null, records[0]);
     }
 
     this.collection.
-      find({ 'detail.user': user, 'detail.repo': repo }).
+      find({
+        branch: branch,
+        'github.user': user,
+        'github.repo': repo
+      }).
       limit(1).
       toArray(onFind);
   }

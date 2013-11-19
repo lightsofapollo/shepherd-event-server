@@ -7,8 +7,10 @@ var TEST_DB = 'mongodb://localhost/shepherd_test';
 function dbSetup() {
   var mongoskin = require('mongoskin');
 
-  // dirty hack to ensure we use a test db.
-  process.env.MONGOLAB_URI = TEST_DB;
+  suiteSetup(function() {
+    // dirty hack to ensure we use a test db.
+    process.env.MONGOLAB_URI = TEST_DB;
+  });
 
   setup(function(done) {
     // we need to open it first

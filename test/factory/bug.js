@@ -1,6 +1,7 @@
-function factory(overrides) {
-  // these fields are required.
-  var result = {
+var Factory = require('object-factory');
+
+module.exports = new Factory({
+  properties: {
     product: 'Testing',
     component: 'Marionette',
     summary: 'I am able to create bugz!',
@@ -8,13 +9,5 @@ function factory(overrides) {
     platform: 'All',
     priority: 'P1',
     op_sys: 'All'
-  };
-
-  for (var key in overrides) {
-    result[key] = overrides[key]
   }
-
-  return result;
-}
-
-module.exports = factory;
+});

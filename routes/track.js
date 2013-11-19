@@ -6,7 +6,7 @@ should be its own isolated concept (it applies elsewhere) and what is tracked
 is a particular landing revision & attachment/source.
 */
 var linkify = require('task-linkify'),
-    Project = require('../lib/store/project');
+    Project = require('../store/github_project');
 
 var consts = {
   INVALID_BODY: { message: 'body must be json and contain .pull_request' },
@@ -53,8 +53,8 @@ function track(req, res) {
     var linkReq = {
       bugzillaConfig: app.get('bugzilla'),
       oauthToken: app.get('github').token,
-      user: project.detail.user,
-      repo: project.detail.repo,
+      user: project.github.user,
+      repo: project.github.repo,
       number: pull.number
     };
 
