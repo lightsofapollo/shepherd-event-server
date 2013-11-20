@@ -7,4 +7,4 @@ services:
 - mongodb
 env:
   global:
-    - secure: Vw+Swj8Qef7GXHC8jyxCLgGZu9vL/Xm1q5AVCoT7kafT+eIXBTXo2lEhpzYQKX7Udhy4aKDaEHNPOkE++aFSMEkmjmauty6R7xf7/JRxvCfVnztciGTHgyihyRWj+YwPTjyua61TePe63G1Hr6rsDvxfOqC/AFVa4oSjvRuDTPA=
+  - secure: k05bP5RU2E9+8g3L0ZfuN4Tx1ZsDr/4UhMwG3Gn7fblyyTetX+bvxZ2vusmlgECJtORbibnPG81PbxZUoJF8tk+qQlOoCPZg1kCwn2Eam8rnLNKu5ZS0sbxEBBeyB44v/P9nNB86P2zWJuqkCcUDOOdbq5QXQ2zEz/q/NHqdcuM=
