@@ -1,3 +1,7 @@
+env:
+  global:
+  - secure: MSnAmBeeEThQdb4PMI+2tUvvWv2zyOQJ/4qKXHv/YplV5HGfZziM1sCuK8r7/Z/Fr0AC9SupMRnexTBu6cCAeSVCqdPB7gAwE/eJEn5hJWShbB+d6hm/UCTXddBEyRCF7ljbeSbMyDU9pUKgqzPYWj3QiRJB4/D8AoD1RLVfbwU=
+  - secure: UEWiGoPWyfDXBFRj4GetG55AtSovATi6MmqhGEjJvQPbGEVmZhDkjRsRRexYPIe7YDQj9L/rH30HezHSjrofK4NSUEyDhuw4AdEWEapGfbVkTZJt26acGozbUvjzkpYxT5iH8qpkrChqI6o4eKRLfzs478CFM1/HkHWhe4brqWU=
 language: node_js
 script: make test
 node_js:
@@ -5,7 +9,3 @@ node_js:
 - '0.11'
 services:
 - mongodb
-env:
-  global:
-  - secure: MSnAmBeeEThQdb4PMI+2tUvvWv2zyOQJ/4qKXHv/YplV5HGfZziM1sCuK8r7/Z/Fr0AC9SupMRnexTBu6cCAeSVCqdPB7gAwE/eJEn5hJWShbB+d6hm/UCTXddBEyRCF7ljbeSbMyDU9pUKgqzPYWj3QiRJB4/D8AoD1RLVfbwU=
-  - secure: UEWiGoPWyfDXBFRj4GetG55AtSovATi6MmqhGEjJvQPbGEVmZhDkjRsRRexYPIe7YDQj9L/rH30HezHSjrofK4NSUEyDhuw4AdEWEapGfbVkTZJt26acGozbUvjzkpYxT5iH8qpkrChqI6o4eKRLfzs478CFM1/HkHWhe4brqWU=
