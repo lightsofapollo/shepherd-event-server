@@ -21,6 +21,8 @@ function main() {
     return process.env[name];
   }
 
+  console.log(process.env);
+
   // build test configuration from environment variables
   return {
     github: {
