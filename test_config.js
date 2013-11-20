@@ -15,7 +15,7 @@ function main() {
     if (!process.env[name]) {
       console.error(
         'Invalid test setup missing environment variable "%s"',
-        key
+        name
       );
     }
     return process.env[name];
