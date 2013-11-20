@@ -21,7 +21,7 @@ function main() {
     return process.env[name];
   }
 
-  console.log(process.env);
+  console.log(process.env.TRAVIS_SECURE_ENV_VARS, '<<<!');
 
   // build test configuration from environment variables
   return {
