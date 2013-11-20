@@ -7,4 +7,4 @@ services:
 - mongodb
 env:
   global:
-  - secure: MSnAmBeeEThQdb4PMI+2tUvvWv2zyOQJ/4qKXHv/YplV5HGfZziM1sCuK8r7/Z/Fr0AC9SupMRnexTBu6cCAeSVCqdPB7gAwE/eJEn5hJWShbB+d6hm/UCTXddBEyRCF7ljbeSbMyDU9pUKgqzPYWj3QiRJB4/D8AoD1RLVfbwU=
+    - secure: MSnAmBeeEThQdb4PMI+2tUvvWv2zyOQJ/4qKXHv/YplV5HGfZziM1sCuK8r7/Z/Fr0AC9SupMRnexTBu6cCAeSVCqdPB7gAwE/eJEn5hJWShbB+d6hm/UCTXddBEyRCF7ljbeSbMyDU9pUKgqzPYWj3QiRJB4/D8AoD1RLVfbwU=
