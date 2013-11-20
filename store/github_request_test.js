@@ -30,53 +30,44 @@ suite('store/github_request', function() {
       subject.collection.insert(request, done);
     });
 
-    test('with correct project and number', function(done) {
-      subject.findByProjectAndPullNumber(
+    test('with correct project and number', function() {
+      return subject.findByProjectAndPullNumber(
         project,
-        request.github.number,
-        function(err, record) {
-          if (err) return done(err);
-          assert(record, 'finds record');
-          assert.equal(record.projectId, project._id, 'project id');
-          assert.equal(record.github.number, request.github.number, '.number');
-          done();
-        }
-      );
+        request.github.number
+      ).then(function(record) {
+        assert(record, 'finds record');
+        assert.equal(record.projectId, project._id, 'project id');
+        assert.equal(record.github.number, request.github.number, '.number');
+      });
     });
 
-    test('with unknown pull request number', function(done) {
-      subject.findByProjectAndPullNumber(
+    test('with unknown pull request number', function() {
+      return subject.findByProjectAndPullNumber(
         project,
-        1000000000,
-        function(err, record) {
-          assert.ok(!record, 'has no record');
-          done(err);
-        }
-      );
+        1000000000
+      ).then(function(record) {
+        assert.ok(!record, 'has no record');
+      });
     });
 
     test('invalid number', function(done) {
-      subject.findByProjectAndPullNumber(
+      return subject.findByProjectAndPullNumber(
         project,
-        null,
-        function(err, record) {
-          assert.ok(err);
-          assert.ok(err.message.indexOf('.number'));
-          done();
-        }
-      );
+        null
+      ).then(done, function(err) {
+        assert.ok(err);
+        assert.ok(err.message.indexOf('.number'));
+      });
     });
 
     test('invalid project', function(done) {
-      subject.findByProjectAndPullNumber(
+      return subject.findByProjectAndPullNumber(
         {},
-        1,
-        function(err, record) {
-          assert.ok(err);
-          assert.ok(err.message.indexOf('.project'));
-          done();
-        }
-      );
+        1
+      ).then(null, function(err) {
+        assert.ok(err);
+        assert.ok(err.message.indexOf('.project'));
+      });
     });
   });
 });
