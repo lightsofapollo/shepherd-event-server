@@ -1,5 +1,5 @@
 var Factory = require('object-factory'),
-    config = require('../../test_config.json').github;
+    config = require('../../test_config').github;
 
 var GithubDetails = new Factory({
   properties: {

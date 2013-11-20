@@ -52,7 +52,7 @@ function create(options, callback) {
 
   debug('create pr', options);
 
-  var config = require('../../test_config.json').github;
+  var config = require('../../test_config').github;
   // github client with test config.
   var github = require('./github')();
   // repo where we put test subjects.
