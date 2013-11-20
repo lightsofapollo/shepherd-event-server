@@ -17,12 +17,13 @@ suite('project', function() {
 
   suite('#findByPullRequest', function() {
 
-    test('cannot find pull request', function(done) {
+    test('cannot find pull request', function() {
       var pr = prFactory.create();
-      subject.findByPullRequest(pr, function(err, project) {
-        assert.ok(!project, 'cannot find project');
-        done(err);
-      });
+      return subject.findByPullRequest(pr).then(
+        function(project) {
+          assert.ok(!project, 'cannot find project');
+        }
+      );
     });
 
     suite('with a project', function() {
@@ -34,12 +35,12 @@ suite('project', function() {
           db.collection('projects').insert(project, done);
         });
 
-        test('finds record', function(done) {
-          subject.findByPullRequest(pr, function(err, record) {
-            assert.ok(record, 'has record');
-            assert.deepEqual(project.github, record.github);
-            done(err);
-          });
+        test('finds record', function() {
+          return subject.findByPullRequest(pr).
+            then(function(record) {
+              assert.ok(record, 'has record');
+              assert.deepEqual(project.github, record.github);
+            });
         });
       });
 
@@ -52,17 +53,14 @@ suite('project', function() {
           db.collection('projects').insert(project, done);
         });
 
-        test('does not find record', function(done) {
-          subject.findByPullRequest(pr, function(err, result) {
-            assert.ok(!result, 'has no record');
-            done(err);
-          });
+        test('does not find record', function() {
+          return subject.findByPullRequest(pr).
+            then(function(result) {
+              assert.ok(!result, 'has no record');
+            });
         });
       });
     });
-
   });
-
-
 });
 

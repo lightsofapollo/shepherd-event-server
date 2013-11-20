@@ -24,7 +24,8 @@
     "github-api": "git://github.com/michael/github.git#7b45b4d6936c3dfb271bb0ea09924554c74e9de8",
     "uuid": "~1.4.1",
     "github-fixtures": "0.0.1",
-    "bugzilla-fixtures": "0.0.1"
+    "bugzilla-fixtures": "0.0.1",
+    "mocha-as-promised": "~1.4.1"
   },
   "dependencies": {
     "express": "~3.4.0",
