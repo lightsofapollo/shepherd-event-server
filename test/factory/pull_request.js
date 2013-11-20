@@ -3,7 +3,7 @@ var PullRequest = require('github-fixtures/pull_request'),
 
 module.exports = PullRequest.extend({
   onbuild: function(props) {
-    var config = require('../../test_config.json').github;
+    var config = require('../../test_config').github;
 
     var repo = config.junkyard_repo;
     var user = config.junkyard_user;
