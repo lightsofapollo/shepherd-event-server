@@ -50,7 +50,7 @@ suite('routes/track', function() {
       request(app).
         post('/track').
         send(fixture).
-        expect(401, consts.NOT_TRACKED_REPO).
+        expect(401, consts.NOT_TRACKED_REPO.message).
         end(done);
     });
   });
