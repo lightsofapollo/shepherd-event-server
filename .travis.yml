@@ -1,7 +1,16 @@
 language: node_js
-script: "make test-min"
+script: make test-min
 node_js:
-  - "0.10"
-  - "0.11"
+- '0.10'
+- '0.11'
 services:
-  - mongodb
+- mongodb
+env:
+  global:
+  - secure: bdFthUEQciadAfECNzfyFpWtnPKua78f8J0FWykrjr/vq7bTcQFFNCO5G/0bDIEnJ1796R3xq/tHJpix7zvT0efB8SzR40hNwc8yOeFPXXChqg7WRKfeJ1vNfq66caGPgx+QQyI18RVXs0jVzv7eFESsLMCNiEr91N77XPFgWM0=
+  - secure: Dm98ZujwBQfmyBtJMTz2LWE7Ick4vnjQ4jXBu2d1dVECH88mXeVkHDPMuWfJPeMPI8o2pFn6WCnH7yO/przG0UEPvEj/Yf672FwwDKUHWvU02ljPqeVcB0bU6zBgYoTqq1QZ+ydXU1bnJ3eDmXzFaNh3gaXQNeoNnloJUZPMP78=
+  - secure: dcp5hh2bxMaLinwn0/IN6qk9x9wYntD3QBSTfAqCoCwX6Z9ErVSaQxKTCY7ASAYAS9i3ZLDHkoADGTkaz6CuZYhrqFEuQby61IaO4DgRXqHCafVzaPlFqWZxpNjP3D3QAAD2nfz7HIIQpTZdo/6ajwqRR+wDhetci3g/aGAwRwo=
+  - secure: KHcgRkNmI+N7+i+W36ifrQ5AHEIWMGNjYPwcTLyEPOdOXanwA1WY2sOltKHcsN3vZGJuZlp8RAci8PKw7a0MBLZwPFyrzOKer+bD5rVeqXnCuvhUwUXgMbCmHSI2GIWVCH7yGWz8rx3Cpxxw5MgP7zow6QUbdh8tVmYximp7G18=
+  - secure: Nw9N4Fl1f33QMKHjGHTMEBZyEN6PYtM0bx6Lu/dd8JF+V43NOeycXViMH5DCWdeJrsx54ileRmTbTl50/u1q3T7IbZhI2zrcvqiNEULT/o3uDAcPDcJlQnU+Ga8ou30WUmCI9vi31RJIyI1YMc9XT4d967CC5brwXnu/SdITr58=
+  - secure: kDHI/verEvZJhYSNXONHj9chaF0pJGx7vTC0+4ZFoTHTbvGZWTYtasw+/gKANUKdYVgczV9dy7sKyRjPzK67s9BJbMJpSwL8lhCwFyGyXrBVNZhApJmVKi07KxrdLmhETD8qVmve21+PXFMa8IQFdONiNGNOgkdPZw0iWzxWSzo=
+  - secure: jbWdWYEnSb7TxAOTxpFmvoTR/56NfjdkviDC72azlaexukMyV/c2YCVSnCc4rnwDilUa3n6Ld1xZ3W26T9gg7ZISDC2NSNYGl+dlX4hDiJH64zl0CtdhskLRASJsV1E9oHEDKSL4dpD6CsaErdEgDMfUKqKB36r/qeEMWYVtrC4=
