@@ -1,3 +1,5 @@
+var Promise = require('Promise');
+
 var uuid = require('uuid'),
     debug = require('debug')('shepherd-event-sever:test:pull_request');
 
@@ -20,11 +22,17 @@ PullRequest.prototype = {
   */
   repo: null,
 
+  sourceRepoBranches: function() {
+    var list = Promise.denodeify(this.repo.listBranches.bind(this.repo));
+    return list();
+  },
+
   /**
   Delete branch on github.
   */
   destroy: function(callback) {
-    this.repo.deleteRef('heads/' + this.branch, callback);
+    var deleteRef = Promise.denodeify(this.repo.deleteRef.bind(this.repo));
+    return deleteRef('heads/' + this.branch);
   }
 };
 
@@ -36,15 +44,15 @@ create a pull request over the github api and create the abstract object.
       files: [
         { commit: 'xfoo', path: 'path.js', content: 'wow!' }
       ]
-    }, function(err, pr) {
+    }).then(pr)
+      // do stuff with pr
     });
 
 @param {Object} options for pull request.
 @param {Array[Object]} options.files files in the pull request.
 @param {String} options.title for pull request.
 */
-function create(options, callback) {
-
+function create(options) {
   // verify we are given options
   if (!options.files || !options.files.length) {
     throw new Error('.files must be given and be an array');
@@ -66,48 +74,40 @@ function create(options, callback) {
   pullObject.repo = junkyard;
 
   function createFiles() {
-    var pending = options.files.length;
+    var write = Promise.denodeify(junkyard.write.bind(junkyard));
 
-    function next(err) {
-      if (err) {
-        // we run in parallel for speed but only report the first error.
-        callback && callback(err);
-        // ensure we only fire the callback once.
-        callback = null;
-        return;
-      }
-
-      if (--pending === 0) createPullRequest();
-    }
-
-    options.files.forEach(function(file) {
-      junkyard.write(
-        pullObject.branch, file.path, file.content, file.commit, next
-      );
+    var promises = options.files.map(function(file) {
+      return write(pullObject.branch, file.path, file.content, file.commit);
     });
+
+    return Promise.all(promises);
   }
 
   function createPullRequest() {
-    var createRequest = {
+    var createPullRequest = Promise.denodeify(
+      junkyard.createPullRequest.bind(junkyard)
+    );
+
+    return createPullRequest({
       title: options.title,
       body: options.title,
       base: 'master',
       head: pullObject.branch
-    };
-
-    junkyard.createPullRequest(createRequest, function(err, pr) {
-      if (err) return callback(err);
-      // record initial pull request state
-      pullObject.initial = pr;
-      callback(null, pullObject);
-    });
+    }).then(
+      function(pr) {
+        pullObject.initial = pr;
+        return pullObject;
+      }
+    );
   }
 
-  // create the branch! (its always master as root for now)
-  junkyard.branch('master', pullObject.branch, function(err, result) {
-    if (err) return callback(err);
-    createFiles();
-  });
+  var createBranch = Promise.denodeify(junkyard.branch.bind(junkyard));
+
+  return createBranch('master', pullObject.branch).then(
+    createFiles
+  ).then(
+    createPullRequest
+  );
 }
 
 module.exports = create;
