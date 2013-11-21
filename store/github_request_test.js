@@ -61,13 +61,13 @@ suite('store/github_request', function() {
     });
 
     test('invalid project', function(done) {
-      return subject.findByProjectAndPullNumber(
-        {},
-        1
-      ).then(null, function(err) {
-        assert.ok(err);
-        assert.ok(err.message.indexOf('.project'));
-      });
+      return subject.findByProjectAndPullNumber({}, 1).then(
+        null,
+        function(err) {
+          assert.ok(err);
+          assert.ok(err.message.indexOf('.project'));
+        }
+      );
     });
   });
 });

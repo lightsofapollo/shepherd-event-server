@@ -36,11 +36,10 @@ suite('project', function() {
         });
 
         test('finds record', function() {
-          return subject.findByPullRequest(pr).
-            then(function(record) {
-              assert.ok(record, 'has record');
-              assert.deepEqual(project.github, record.github);
-            });
+          return subject.findByPullRequest(pr).then(function(record) {
+            assert.ok(record, 'has record');
+            assert.deepEqual(project.github, record.github);
+          });
         });
       });
 
@@ -54,10 +53,9 @@ suite('project', function() {
         });
 
         test('does not find record', function() {
-          return subject.findByPullRequest(pr).
-            then(function(result) {
-              assert.ok(!result, 'has no record');
-            });
+          return subject.findByPullRequest(pr).then(function(result) {
+            assert.ok(!result, 'has no record');
+          });
         });
       });
     });
