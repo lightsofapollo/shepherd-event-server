@@ -11,7 +11,7 @@ test: node_modules
 .PHONY: test-min
 test-min: node_modules
 	./node_modules/.bin/mocha \
-		test/index_test.js \
+		web_test.js \
 		$(wildcard store/*_test.js) \
 		$(wildcard models/*_test.js)
 
