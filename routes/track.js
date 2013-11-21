@@ -7,7 +7,7 @@ After internally debating how this should work I think the "track" step
 should be its own isolated concept (it applies elsewhere) and what is tracked
 is a particular landing revision & attachment/source.
 */
-var linkify = require('task-linkify'),
+var linkify = Promise.denodeify(require('task-linkify')),
     Project = require('../store/github_project');
 
 var consts = {
@@ -19,20 +19,15 @@ var consts = {
 };
 
 function linkProject(app, pull, project) {
-  return Promise(function(accept, reject) {
-    var linkReq = {
-      bugzillaConfig: app.get('bugzilla'),
-      oauthToken: app.get('github').token,
-      user: project.github.user,
-      repo: project.github.repo,
-      number: pull.number
-    };
+  var linkReq = {
+    bugzillaConfig: app.get('bugzilla'),
+    oauthToken: app.get('github').token,
+    user: project.github.user,
+    repo: project.github.repo,
+    number: pull.number
+  };
 
-    Promise.denodeify(linkify)(linkReq).then(
-      accept,
-      reject
-    );
-  });
+  return linkify(linkReq);
 }
 
 /**

@@ -104,14 +104,15 @@ suite('routes/track', function() {
         ]
       };
 
-      createPull(pullRequestData, function(err, _pull) {
-        pull = _pull;
-        done(err);
-      });
+      return createPull(pullRequestData).then(
+        function(_pull) {
+          pull = _pull;
+        }
+      );
     });
 
     teardown(function(done) {
-      pull.destroy(done);
+      return pull.destroy();
     });
 
     suite('successfully tracked', function() {
