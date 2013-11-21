@@ -1,52 +1,47 @@
 suite('support/pull_request', function() {
   var createPR = require('./pull_request');
+  var Promise = require('promise');
 
   suite('pull request with files', function() {
     var pr;
 
     setup(function(done) {
-      createPR({
+      return createPR({
         title: 'test pull request',
         files: [
           { commit: 'first', path: 'a.txt', content: 'woot' }
         ]
-      }, function(err, _pr) {
+      }).then(function(_pr) {
         pr = _pr;
+      }, function(err) {
+        console.log(err);
         done(err);
       });
     });
 
     teardown(function(done) {
-      pr.destroy(function() {
-        // ignore errors- if we fail to clean up because of the test its
-        // no big deal and we verify deletion below.
-        done();
-      });
+      var alwaysDone = done.bind(null, null);
+      pr.destroy().then(alwaysDone, alwaysDone);
     });
 
     test('.branch exists', function(done) {
       assert.ok(pr.branch, 'has .branch');
-      pr.repo.listBranches(function(err, list) {
-        if (err) return done(err);
+      return pr.sourceRepoBranches().then(function(list) {
         assert.ok(
           list.indexOf(pr.branch) !== -1,
           list.join(', ') + ' has branch ' + pr.branch
         );
-        done();
       });
     });
 
     test('.destroy', function(done) {
-      pr.destroy(function(err) {
-        if (err) return done(err);
-        pr.repo.listBranches(function(err, list) {
-          if (err) return done(err);
-          assert.ok(
-            list.indexOf(pr.branch) === -1,
-            'removes pr'
-          );
-          done();
-        });
+      return pr.destroy().then(
+        pr.sourceRepoBranches.bind(pr)
+      ).then(function(list) {
+        assert.ok(
+          list.indexOf(pr.branch) === -1,
+          'removes pr'
+        );
       });
     });
   });
