@@ -2,7 +2,7 @@
   "name": "shepherd-event-server",
   "version": "0.0.0",
   "description": "shepherd-event-server =====================",
-  "main": "index.js",
+  "main": "web.js",
   "private": true,
   "scripts": {
     "test": "make test"
