@@ -65,22 +65,23 @@ function track(req, res) {
     });
   }
 
-  project.findByPullRequest(pull).
-    then(validateProject).
-    then(linkProject.bind(this, app, pull)).
-    then(
-      res.send.bind(res, 200),
-      function(err) {
-        if (err instanceof Error) {
-          console.error('Unexpected error', err);
-          return res.send(500, err.message);
-        }
-
-        console.error('Unsuccessful request', err);
-        var code = err.code || 500;
-        res.send(code, err.message);
+  project.findByPullRequest(pull).then(
+    validateProject
+  ).then(
+    linkProject.bind(this, app, pull)
+  ).then(
+    res.send.bind(res, 200),
+    function(err) {
+      if (err instanceof Error) {
+        console.error('Unexpected error', err);
+        return res.send(500, err.message);
       }
-    );
+
+      console.error('Unsuccessful request', err);
+      var code = err.code || 500;
+      res.send(code, err.message);
+    }
+  );
 }
 
 track.consts = consts;
