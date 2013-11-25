@@ -60,12 +60,12 @@ function create(options) {
 
   debug('create pr', options);
 
-  var config = require('../../test_config').github;
+  var config = require('../../config')().github;
   // github client with test config.
   var github = require('./github')();
   // repo where we put test subjects.
   var junkyard =
-    github.getRepo(config.junkyard_user, config.junkyard_repo);
+    github.getRepo(config.user, config.repo);
 
   // create the branch name
   var pullObject = new PullRequest();

@@ -3,21 +3,21 @@ var PullRequest = require('github-fixtures/pull_request'),
 
 module.exports = PullRequest.extend({
   onbuild: function(props) {
-    var config = require('../../test_config').github;
+    var config = require('../../config')().github;
 
-    var repo = config.junkyard_repo;
-    var user = config.junkyard_user;
+    var repo = config.repo;
+    var user = config.user;
 
     var repo = Repo.create({
-      name: config.junkyard_repo,
+      name: config.repo,
 
       owner: {
-        login: config.junkyard_user
+        login: config.user
       },
 
       clone_url: 'https://github.com/' +
-                  config.junkyard_user +
-                  '/' + config.junkyard_repo + '.git'
+                  config.user +
+                  '/' + config.repo + '.git'
     });
 
     props.base.repo = repo;
