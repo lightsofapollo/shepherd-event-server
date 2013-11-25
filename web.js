@@ -28,7 +28,7 @@ function main() {
   });
 
   app.configure('test', function() {
-    var config = require('./test_config.json');
+    var config = require('./test_config');
     app.set('github', config.github);
     app.set('bugzilla', config.bugzilla);
   });
