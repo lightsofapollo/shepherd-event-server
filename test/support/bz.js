@@ -1,5 +1,5 @@
 function createClient() {
-  var config = require('../../test_config').bugzilla,
+  var config = require('../../config')().bugzilla,
       bzAPI = require('bz');
 
   return bzAPI.createClient(config);
