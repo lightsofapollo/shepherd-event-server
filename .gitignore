@@ -15,3 +15,4 @@ Gemfile.lock
 # node
 node_modules
 /test_config.json
+/test.env

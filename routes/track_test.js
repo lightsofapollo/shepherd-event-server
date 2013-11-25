@@ -57,7 +57,6 @@ suite('routes/track', function() {
 
   suite('link opted pull request', function() {
     setup(function(done) {
-      var config = require('../test_config').github;
       app = appFactory();
 
       var collection = app.get('db').collection('projects');
