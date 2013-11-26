@@ -2,7 +2,7 @@
   "name": "shepherd-event-server",
   "version": "0.0.0",
   "description": "shepherd-event-server =====================",
-  "main": "index.js",
+  "main": "web.js",
   "private": true,
   "scripts": {
     "test": "make test"
@@ -24,7 +24,8 @@
     "github-api": "git://github.com/michael/github.git#7b45b4d6936c3dfb271bb0ea09924554c74e9de8",
     "uuid": "~1.4.1",
     "github-fixtures": "0.0.1",
-    "bugzilla-fixtures": "0.0.1"
+    "bugzilla-fixtures": "0.0.1",
+    "mocha-as-promised": "~1.4.1"
   },
   "dependencies": {
     "express": "~3.4.0",
@@ -32,6 +33,7 @@
     "github": "~0.1.12",
     "debug": "~0.7.2",
     "task-linkify": "git://github.com/mozilla-b2g-bot/task-linkify.git#0.1.0",
-    "object-factory": "~0.1.1"
+    "object-factory": "~0.1.1",
+    "promise": "~3.2.0"
   }
 }

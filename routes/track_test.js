@@ -50,7 +50,7 @@ suite('routes/track', function() {
       request(app).
         post('/track').
         send(fixture).
-        expect(401, consts.NOT_TRACKED_REPO).
+        expect(401, consts.NOT_TRACKED_REPO.message).
         end(done);
     });
   });
@@ -104,14 +104,15 @@ suite('routes/track', function() {
         ]
       };
 
-      createPull(pullRequestData, function(err, _pull) {
-        pull = _pull;
-        done(err);
-      });
+      return createPull(pullRequestData).then(
+        function(_pull) {
+          pull = _pull;
+        }
+      );
     });
 
     teardown(function(done) {
-      pull.destroy(done);
+      return pull.destroy();
     });
 
     suite('successfully tracked', function() {

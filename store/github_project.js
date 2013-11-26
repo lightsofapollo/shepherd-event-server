@@ -1,3 +1,5 @@
+var Promise = require('promise');
+
 function Project(db) {
   this.collection = db.collection('projects');
 }
@@ -8,49 +10,46 @@ Project.prototype = {
 
   @see http://developer.github.com/v3/pulls/
   @param {Object} pr github pull request.
-  @param {Function} callback [Error, Project].
+  @return Promise
   */
-  findByPullRequest: function(pr, callback) {
-    var base = pr && pr.base,
-        baseRepo = base && base.repo;
+  findByPullRequest: function(pr) {
+    return new Promise(function(accept, reject) {
+      var base = pr && pr.base,
+          baseRepo = base && base.repo;
 
-    if (!baseRepo) {
-      return process.nextTick(function() {
-        callback(new Error('invalid pull request .base.repo is missing'));
-      });
-    }
+      if (!baseRepo) {
+        return reject(new Error('invalid pull request .base.repo is missing'));
+      }
 
-    var repo = baseRepo.name,
-        user = baseRepo.owner && baseRepo.owner.login,
-        branch = base.label;
+      var repo = baseRepo.name,
+          user = baseRepo.owner && baseRepo.owner.login,
+          branch = base.label;
 
-    if (!user) {
-      return process.nextTick(function() {
-        callback(
+      if (!user) {
+        return reject(
           new Error('invalid pull request .base.repo.owner.login is missing')
         );
-      });
-    }
+      }
 
-    if (!branch) {
-      return process.nextTick(function() {
-        callback(new Error('base branch not found'));
-      });
-    }
+      if (!branch) {
+        return reject(new Error('base branch not found'));
+      }
 
-    function onFind(err, records) {
-      if (err) return callback(err);
-      callback(null, records[0]);
-    }
+      function onFind(err, records) {
+        if (err) return reject(err);
+        accept(records[0]);
+      }
 
-    this.collection.
-      find({
-        branch: branch,
-        'github.user': user,
-        'github.repo': repo
-      }).
-      limit(1).
-      toArray(onFind);
+      this.collection.
+        find({
+          branch: branch,
+          'github.user': user,
+          'github.repo': repo
+        }).
+        limit(1).
+        toArray(onFind);
+
+    }.bind(this));
   }
 };
 

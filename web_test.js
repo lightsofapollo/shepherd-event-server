@@ -1,5 +1,5 @@
 suite('index', function() {
-  var subject = require('../');
+  var subject = require('./');
   var mongoskin = require('mongoskin');
 
   function setEnvs(envs) {
