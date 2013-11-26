@@ -1,4 +1,4 @@
-var Promise = require('Promise');
+var Promise = require('promise');
 
 var uuid = require('uuid'),
     debug = require('debug')('shepherd-event-sever:test:pull_request');
