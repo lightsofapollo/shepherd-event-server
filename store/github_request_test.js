@@ -9,7 +9,7 @@ suite('store/github_request', function() {
 
   var subject,
       db,
-      github = require('../config')().github,
+      github = require('../config')('github'),
       project;
 
   setup(function() {

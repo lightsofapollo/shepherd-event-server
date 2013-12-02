@@ -8,7 +8,7 @@ suite('project', function() {
 
   var subject,
       db,
-      github = require('../config')().github;
+      github = require('../config')('github');
 
   setup(function() {
     db = appFactory().get('db');

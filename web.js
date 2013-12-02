@@ -2,15 +2,15 @@ function main() {
   var express = require('express'),
       app = express(),
       mongoskin = require('mongoskin'),
-      configLoader = require('./config');
+      config = require('./config');
 
 
-  // configuration
-  var config = configLoader();
-
-  app.set('github', config.github);
-  app.set('bugzilla', config.bugzilla);
-  app.set('db', mongoskin.db(config.mongodb.uri, config.mongodb.config));
+  app.set('github', config('github'));
+  app.set('bugzilla', config('bugzilla'));
+  app.set(
+    'db',
+    mongoskin.db(config('mongodb').uri, config('mongodb').config)
+  );
 
   // parse json
   app.use(express.json());

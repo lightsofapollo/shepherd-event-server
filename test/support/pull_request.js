@@ -60,7 +60,7 @@ function create(options) {
 
   debug('create pr', options);
 
-  var config = require('../../config')().github;
+  var config = require('../../config')('github');
   // github client with test config.
   var github = require('./github')();
   // repo where we put test subjects.

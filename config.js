@@ -12,31 +12,38 @@ function env(name, allowEmpty) {
   return process.env[name];
 }
 
-
-function config() {
-  // build test configuration from environment variables
-  return {
-    amqp: {
-      uri: env('CLOUDAMQP_URL', true) || DEFAULT_AMQP_URI
-    },
-
-    mongodb: {
+var configurations = {
+  mongodb: function() {
+    return {
       uri: env('MONGOLAB_URI', true) || DEFAULT_MONGO_URI,
       config: DEFAULT_MONGO_CONFIG
-    },
+    };
+  },
 
-    github: {
+  ampq: function() {
+    return { uri: env('CLOUDAMQP_URL', true) || DEFAULT_AMQP_URI };
+  },
+
+  github: function() {
+    return {
       token: env('GITHUB_TOKEN'),
       repo: env('GITHUB_REPO', true),
       user: env('GITHUB_USER', true)
-    },
+    };
+  },
 
-    bugzilla: {
+  bugzilla: function() {
+    return {
       username: env('BUGZILLA_USERNAME'),
       password: env('BUGZILLA_PASSWORD'),
       url: env('BUGZILLA_URL')
-    }
-  };
+    };
+  }
+};
+
+
+function config(type) {
+  return configurations[type]();
 }
 
 module.exports = config;

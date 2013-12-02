@@ -3,7 +3,7 @@ var PullRequest = require('github-fixtures/pull_request'),
 
 module.exports = PullRequest.extend({
   onbuild: function(props) {
-    var config = require('../../config')().github;
+    var config = require('../../config')('github');
 
     var repo = config.repo;
     var user = config.user;
