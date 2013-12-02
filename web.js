@@ -10,16 +10,11 @@ function main() {
 
   app.set('github', config.github);
   app.set('bugzilla', config.bugzilla);
+  app.set('db', mongoskin.db(config.mongodb.uri, config.mongodb.config));
 
   // parse json
   app.use(express.json());
   app.use(express.logger());
-
-  app.set('db', mongoskin.db(
-    process.env.MONGOLAB_URI || 'mongodb://localhost/shepherd_development',
-    // at least one server acks the write and its journaled
-    { w: 1, j: 1 }
-  ));
 
   // "track" is the language used to indicate we should care about this pull
   // request.
@@ -30,7 +25,7 @@ function main() {
   });
 
   app.get('/', function(req, res) {
-    res.send(200, "The door closes behind you.");
+    res.send(200, 'The door closes behind you.');
   });
 
   return app;

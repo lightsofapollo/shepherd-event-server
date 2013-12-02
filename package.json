@@ -25,7 +25,8 @@
     "uuid": "~1.4.1",
     "github-fixtures": "0.0.1",
     "bugzilla-fixtures": "0.0.1",
-    "mocha-as-promised": "~1.4.1"
+    "mocha-as-promised": "~1.4.1",
+    "envfile": "~1.0.0"
   },
   "dependencies": {
     "express": "~3.4.0",
@@ -35,6 +36,6 @@
     "task-linkify": "git://github.com/mozilla-b2g-bot/task-linkify.git#0.1.0",
     "object-factory": "~0.1.1",
     "promise": "~3.2.0",
-    "envfile": "~1.0.0"
+    "amqplib": "~0.1.1"
   }
 }
