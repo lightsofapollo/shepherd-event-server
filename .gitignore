@@ -16,3 +16,4 @@ Gemfile.lock
 node_modules
 /test_config.json
 /test.env
+/api-design

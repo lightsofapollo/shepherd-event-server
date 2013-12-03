@@ -1,3 +1,5 @@
 module.exports = function(options, callback) {
-  callback(null, options);
+  if (!options.timesout) return callback(null, options);
+
+  setTimeout(callback, options.timesout, null);
 };
