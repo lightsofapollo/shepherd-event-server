@@ -20,7 +20,7 @@ var configurations = {
     };
   },
 
-  ampq: function() {
+  amqp: function() {
     return { uri: env('CLOUDAMQP_URL', true) || DEFAULT_AMQP_URI };
   },
 
