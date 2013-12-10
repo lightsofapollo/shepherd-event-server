@@ -23,6 +23,7 @@ Vagrant.configure("2") do |config|
     config.vm.network "forwarded_port", guest: 60001, host: 60001
     config.vm.network "forwarded_port", guest: 27017, host: 27017
     config.vm.network "forwarded_port", guest: 5672, host: 5672
+    config.vm.network "forwarded_port", guest: 15672, host: 15672
 
     # allow symlinks in shared folders
     config.vm.provider "virtualbox" do |v|
@@ -60,7 +61,8 @@ Vagrant.configure("2") do |config|
         "recipe[mongodb::default]",
         "recipe[nodejs]",
         "recipe[git]",
-        "recipe[rabbitmq]"
+        "recipe[rabbitmq]",
+        "recipe[rabbitmq::mgmt_console]"
       ]
     end
   end

@@ -26,7 +26,8 @@
     "github-fixtures": "0.0.1",
     "bugzilla-fixtures": "0.0.1",
     "mocha-as-promised": "~1.4.1",
-    "envfile": "~1.0.0"
+    "envfile": "~1.0.0",
+    "tcptestproxy": "~0.0.1"
   },
   "dependencies": {
     "express": "~3.4.0",
