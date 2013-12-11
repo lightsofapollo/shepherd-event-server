@@ -1,7 +1,7 @@
 suite('queue consumer', function() {
   var Consumer = require('./queue_consumer'),
       Producer = require('./queue_producer'),
-      amqp = require('../test/amqp')(),
+      amqp = require('../test/amqp_clean')(),
       tasks = require('../queues/tasks'),
       jsonbin = require('../lib/binary_json');
 
