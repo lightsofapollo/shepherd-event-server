@@ -1,5 +1,4 @@
-var amqp = require('amqplib'),
-    config = require('./config'),
+var Worker = require('./lib/amqp_worker'),
     TaskQueue = require('./queues/tasks'),
     Tasks = require('./lib/tasks'),
     Consumer = require('./store/queue_consumer'),
@@ -8,31 +7,10 @@ var amqp = require('amqplib'),
 var debug = require('debug')('taskrunner');
 
 var CONCURRENCY = 1;
-var TaskHandler = new Tasks(require('./tasks'));
-
-function amqpConnect() {
-  var connection;
-  var channel;
-
-  // connect to amqp
-  return amqp.connect(config('amqp').uri, { heartbeat: 10 }).then(
-    function(_connection) {
-      connection = _connection;
-      return connection.createChannel();
-    }
-  ).then(
-    function(_channel) {
-      channel = _channel;
-      return channel.prefetch(CONCURRENCY);
-    }
-  ).then(
-    function() {
-      return channel;
-    }
-  );
-}
 
 function consumeTasks(consumer, publisher) {
+  var TaskHandler = new Tasks(require('./tasks'));
+
   consumer.consume(function(channel, message) {
     /**
     {
@@ -68,19 +46,24 @@ function consumeTasks(consumer, publisher) {
 }
 
 function main() {
-  var channel;
-  return amqpConnect().then(
-    function(_channel) {
-      channel = _channel;
-      return TaskQueue.define(channel);
+  var worker;
+
+  Worker.create().then(
+    function(_worker) {
+      worker = _worker;
+      return worker.channel.prefetch(CONCURRENCY);
     }
-    // define the schema
   ).then(
     function() {
       return consumeTasks(
-        new Consumer(channel, TaskQueue.REQUEST_QUEUE),
-        new Producer(channel, TaskQueue.EXCHANGE)
+        new Consumer(worker.channel, TaskQueue.REQUEST_QUEUE),
+        new Producer(worker.channel, TaskQueue.EXCHANGE)
       );
+    }
+  ).then(
+    null,
+    function(err) {
+      throw err;
     }
   );
 }
